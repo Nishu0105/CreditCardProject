@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 def train_model():
     print("Training model, please wait...")
     # Use the compressed data file instead of the original
-    data_path = os.path.join("data", "creditcard_compressed.csv")
+    data_path = os.path.join("data", "creditcard_reduced.csv")
     df = pd.read_csv(data_path)
     fraud = df[df['Class'] == 1]
     non_fraud = df[df['Class'] == 0].sample(n=fraud.shape[0], random_state=42)
