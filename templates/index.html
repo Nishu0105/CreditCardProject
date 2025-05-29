@@ -1,109 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Credit Card Fraud Detection</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f0f2f5;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
+{% extends "base.html" %}
 
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-        }
+{% block title %}Check Fraud - Credit Card Fraud Detection{% endblock %}
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
+{% block extra_css %}
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    textarea {
+        width: 100%;
+        height: 120px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        resize: vertical;
+        box-sizing: border-box;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
+    .result {
+        margin-top: 30px;
+        padding: 15px;
+        border-radius: 4px;
+        text-align: center;
+    }
 
-        textarea {
-            width: 100%;
-            height: 120px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            resize: vertical;
-            box-sizing: border-box;
-        }
+    .fraud {
+        background-color: #ffebee;
+        border-left: 5px solid #f44336;
+        color: #c62828;
+    }
 
-        .btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
+    .normal {
+        background-color: #e8f5e9;
+        border-left: 5px solid #4caf50;
+        color: #2e7d32;
+    }
+</style>
+{% endblock %}
 
-        .btn:hover {
-            background: #2980b9;
-        }
-
-        .result {
-            margin-top: 30px;
-            padding: 15px;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .fraud {
-            background-color: #ffebee;
-            border-left: 5px solid #f44336;
-            color: #c62828;
-        }
-
-        .normal {
-            background-color: #e8f5e9;
-            border-left: 5px solid #4caf50;
-            color: #2e7d32;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Credit Card Fraud Detection</h1>
-        <div class="card">
-            <form method="POST" action="/predict">
-                <div class="form-group">
-                    <label>Enter 30 comma-separated values (V1–V28, Amount, Time):</label>
-                    <textarea name="features" required placeholder="Enter values separated by commas..."></textarea>
-                </div>
-                <button type="submit" class="btn">Predict</button>
-            </form>
-            {% if prediction %}
-                <div class="result {% if 'Fraud' in prediction %}fraud{% else %}normal{% endif %}">
-                    <h2>{{ prediction }}</h2>
-                </div>
-            {% endif %}
+{% block content %}
+<div class="card">
+    <h1 style="text-align: center;">Check for Credit Card Fraud</h1>
+    <form method="POST" action="/predict">
+        <div class="form-group">
+            <label>Enter 30 comma-separated values (V1–V28, Amount, Time):</label>
+            <textarea name="features" required placeholder="Enter values separated by commas..."></textarea>
         </div>
-    </div>
-</body>
-</html>
+        <button type="submit" class="btn">Predict</button>
+    </form>
+    {% if prediction %}
+        <div class="result {% if 'Fraud' in prediction %}fraud{% else %}normal{% endif %}">
+            <h2>{{ prediction }}</h2>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
